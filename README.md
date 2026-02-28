@@ -23,16 +23,24 @@ This system is designed to predict agricultural outcomes (e.g., crop yield, food
 
 ## Installation
 
+### macOS specific instructions
+
+If you are on macOS and don't have Python or Git installed, you can use [Homebrew](https://brew.sh/):
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install python git
+```
+
 1.  **Clone the repository** (if you haven't already):
     ```bash
     git clone <your-repo-url>
     cd ag-prediction-market
     ```
 
-2.  **Create a virtual environment** (recommended):
+2.  **Create a virtual environment** (highly recommended to avoid conflicting packages):
     ```bash
     python3 -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    source venv/bin/activate
     ```
 
 3.  **Install dependencies**:
@@ -55,17 +63,28 @@ To use real data from the USDA, you will need an API key.
 
 ## Usage
 
-To run the full simulation pipeline:
+### 1. Interactive Web Dashboard (Beautiful UI)
+
+To launch the beautiful interactive Streamlit dashboard:
+
+```bash
+streamlit run app.py
+```
+
+This will open a browser window displaying:
+*   Historical yield and feature trends with interactive charts.
+*   Model performance metrics.
+*   An interactive prediction simulator where you can adjust crop condition and NDVI expectations to see real-time yield forecasts.
+
+### 2. Command Line Pipeline
+
+To run the full simulation pipeline from the terminal without the UI:
 
 ```bash
 python3 main.py
 ```
 
-This script will:
-1.  Attempt to fetch real data (or fallback to synthetic data).
-2.  Process historical crop conditions and satellite data.
-3.  Train the yield prediction model.
-4.  Predict the yield for a hypothetical current season (e.g., 2023).
+This script will attempt to fetch real data (or fallback to synthetic data), process historical features, train the yield prediction model, and output a prediction for a hypothetical current season.
 
 ## Testing
 
@@ -118,7 +137,8 @@ If you are setting this up as a new repository on GitHub, follow these steps:
 │   └── models/
 │       └── yield_model.py       # Prediction logic
 ├── tests/                       # Unit tests
-├── main.py                      # Application entry point
+├── app.py                       # Streamlit interactive UI dashboard
+├── main.py                      # CLI application entry point
 ├── requirements.txt             # Python dependencies
 └── README.md                    # This file
 ```
